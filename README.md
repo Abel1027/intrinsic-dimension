@@ -1,39 +1,76 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<p align="center">
+  <img width="100" height="100" src="https://github.com/Abel1027/intrinsic-dimension/gallery/IntrinsicDimensionLogo.png">
+</p>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+# <div align="center">IntrinsicDimension</div>
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+<div align="center">A widget that expose a builder to obtain the dimensions of the widget returned from the builder.</div>
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Motivation
 
-## Features
+There are some situations when we want to know the dimensions of a widget to make an operation or to create another widget based on those dimensions. However, we cannot know the dimensions of a widget because the widget could not have an specific dimension.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+For example, imagine you have a `Text` widget and you want to know the height of the widget to draw a vertical line of the same height. How can we know the height of the widget if we don't know the `fontSize` and the interline space?
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+In this case, we need to draw the widget and then, from the first frame, get the render box of the widget which contains the dimensions to be able to operate with those dimensions on the next frames.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Return the widget you want to know its dimensions from the `builder` function of the `IntrinsicDimension` widget.
+
+### main.dart
 
 ```dart
-const like = 'sample';
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+            title: 'Intrinsic Dimension Example',
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+                appBar: AppBar(
+                title: const Text('Intrinsic Dimension Example'),
+                ),
+                body: IntrinsicDimension(
+                    builder: (context, width, height, startOffset) {
+                        // use the height to draw the vertical line
+                        // in the second frame
+                        return Row(
+                                children: [
+                                Container(
+                                    width: 2,
+                                    height: height,
+                                    color: Colors.black,
+                                ),
+                                const SizedBox(width: 8),
+                                Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                        const Text('Vertical line'),
+                                        Text('Offset: $startOffset'),
+                                    ],
+                                ),
+                            ],
+                        );
+                    },
+                ),
+            ),
+        );
+    }
+}
 ```
 
-## Additional information
+## Gallery
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+![IntrinsicDimension](gallery/IntrinsicDimension.PNG)
+
+## Dart Versions
+
+- Dart 2: >= 2.12
+
+## Author
+
+- [Abel Rodríguez](https://github.com/Abel1027)
