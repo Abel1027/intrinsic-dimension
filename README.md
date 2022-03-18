@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="100" height="100" src="https://github.com/Abel1027/intrinsic-dimension/gallery/IntrinsicDimensionLogo.png">
+  <img width="330" height="300" src="https://github.com/Abel1027/intrinsic-dimension/raw/main/gallery/IntrinsicDimensionLogo.png">
 </p>
 
 # <div align="center">IntrinsicDimension</div>
