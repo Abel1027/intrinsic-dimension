@@ -1,3 +1,5 @@
-## 0.0.1
+# 0.1.0
 
-* TODO: Describe initial release.
+First version.
+
+- Expose a builder function to offer width, height, and start offset of the returned widget.
