@@ -1,3 +1,7 @@
+# 0.1.1
+
+Fix gallery image provider from documentation.
+
 # 0.1.0
 
 First version.
