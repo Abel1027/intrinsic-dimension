@@ -65,7 +65,9 @@ class MyApp extends StatelessWidget {
 
 ## Gallery
 
-![IntrinsicDimension](gallery/IntrinsicDimension.PNG)
+<p align="center">
+  <img width="538" height="588" src="https://github.com/Abel1027/intrinsic-dimension/raw/main/gallery/IntrinsicDimension.PNG">
+</p>
 
 ## Dart Versions
 
