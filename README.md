@@ -34,6 +34,11 @@ class MyApp extends StatelessWidget {
                 title: const Text('Intrinsic Dimension Example'),
                 ),
                 body: IntrinsicDimension(
+                    listener: (context, width, height, startOffset) {
+                        print('WIDTH: $width');
+                        print('HEIGHT: $height');
+                        print('OFFSET: $startOffset');
+                    }
                     builder: (context, width, height, startOffset) {
                         // use the height to draw the vertical line
                         // in the second frame
@@ -67,6 +72,10 @@ class MyApp extends StatelessWidget {
 
 <p align="center">
   <img width="538" height="588" src="https://github.com/Abel1027/intrinsic-dimension/raw/main/gallery/IntrinsicDimension.PNG">
+</p>
+
+<p align="center">
+  <img width="267" height="511" src="https://github.com/Abel1027/intrinsic-dimension/raw/main/gallery/IntrinsicConnection.PNG">
 </p>
 
 ## Dart Versions

@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 
 class IntrinsicDimension extends StatefulWidget {
-  /// [IntrinsicDimension] exposes a [builder] to get the dimensions
-  /// of the widget returned from the [builder].
+  /// [IntrinsicDimension] exposes a [listener] and a [builder] to get
+  /// the dimensions of the widget returned from the [builder].
   ///
   /// How it works:
   ///
   /// 1. In the first frame drawn by the screen it is computed the `width`,
   /// `height`, and the `startOffset` the widget is drawn from the top left corner
-  /// of the screen which is the (0, 0). At this time, the [builder] only
-  /// offers a `width` and `height` equal to zero and a `startOffset` equal
-  /// to (0, 0).
+  /// of the screen which is the (0, 0). At this time, both the [listener] and
+  /// the [builder] only offer a `width` and `height` equal to zero and a
+  /// `startOffset` equal to (0, 0).
   ///
   /// 2. Next, in the second frame, it is already known the dimensions of the
-  /// widget and the [builder] offers such dimensions via `width`, `heigth`,
-  /// and `startOffset` parameters.
+  /// widget and both the [listener] and the [builder] offer such dimensions
+  /// via `width`, `heigth`, and `startOffset` parameters.
   ///
   /// ```dart
   /// IntrinsicDimension(
+  ///   listener: (context, width, height, startOffset) {
+  ///     // do actions here based on widget's width, height and startOffset
+  ///   }
   ///   builder: (context, width, height, startOffset) {
   ///     // do stuff here based on widget's width, height and startOffset
   ///     // and return a widget
@@ -44,8 +47,22 @@ class IntrinsicDimension extends StatefulWidget {
 
   const IntrinsicDimension({
     Key? key,
+    this.listener,
     required this.builder,
   }) : super(key: key);
+
+  /// The [listener] callback function which is invoked on each widget build.
+  /// The [listener] takes the `BuildContext`, the `width`, the `height`,
+  /// and the `startOffset` from where the widget is drawn.
+  /// The [listener] returns nothing and it can be used to executes actions.
+  /// For example, calling the setState method of an stateful widget and
+  /// update the whole widget based on this widget dimensions.
+  final void Function(
+    BuildContext context,
+    double width,
+    double height,
+    Offset startOffset,
+  )? listener;
 
   /// The [builder] callback function which is invoked on each widget build.
   /// The [builder] takes the `BuildContext`, the `width`, the `height`,
@@ -101,6 +118,8 @@ class _IntrinsicDimensionState extends State<IntrinsicDimension> {
         _width = _widgetRenderBox.paintBounds.right;
         _height = _widgetRenderBox.paintBounds.bottom;
         _startOffset = _widgetRenderBox.localToGlobal(Offset.zero);
+
+        widget.listener?.call(context, _width, _height, _startOffset);
       }
     });
   }
