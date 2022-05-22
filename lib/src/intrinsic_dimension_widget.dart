@@ -106,7 +106,7 @@ class _IntrinsicDimensionState extends State<IntrinsicDimension> {
     _width = 0;
     _height = 0;
     _startOffset = Offset.zero;
-    WidgetsBinding.instance?.addPostFrameCallback(_getDimensionsAfterLayout);
+    WidgetsBinding.instance.addPostFrameCallback(_getDimensionsAfterLayout);
   }
 
   void _getDimensionsAfterLayout(_) {
