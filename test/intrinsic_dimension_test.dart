@@ -8,7 +8,7 @@ class IntrinsicDimensionExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double _height = 100;
+    const double constHeight = 100;
 
     return MaterialApp(
       title: 'Intrinsic Dimension Example',
@@ -23,7 +23,7 @@ class IntrinsicDimensionExample extends StatelessWidget {
             builder: (context, width, height, startOffset) {
               return Row(
                 children: [
-                  if (height == _height)
+                  if (height == constHeight)
                     Container(
                       key: const Key('Container'),
                       width: 2,
@@ -32,7 +32,7 @@ class IntrinsicDimensionExample extends StatelessWidget {
                     ),
                   const SizedBox(width: 8),
                   SizedBox(
-                    height: _height,
+                    height: constHeight,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,

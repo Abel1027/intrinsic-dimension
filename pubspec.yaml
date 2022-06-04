@@ -1,6 +1,6 @@
 name: intrinsic_dimension
 description: A widget that offers the dimensions (width and height) and the start offset of the widget you return from a builder callback function.
-version: 0.2.1
+version: 0.3.0
 repository: https://github.com/Abel1027/intrinsic-dimension
 
 environment:
@@ -14,4 +14,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1

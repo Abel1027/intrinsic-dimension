@@ -55,6 +55,7 @@ class _ConnectionExampleState extends State<ConnectionExample> {
                   color: Colors.orange,
                   child: const Text('TOP WIDGET'),
                 ),
+                rebuild: true,
               ),
               const SizedBox(height: 32),
               IntrinsicDimension(
@@ -70,6 +71,7 @@ class _ConnectionExampleState extends State<ConnectionExample> {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
+                rebuild: true,
               ),
             ],
           ),

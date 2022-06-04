@@ -1,3 +1,7 @@
+# 0.3.0
+
+Add the rebuild boolean property to allow the widget to be rebuilt on every frame. Useful for rebuilding the widget by changing the font size from the OS settings and consequently the size and position of the widget change.
+
 # 0.2.1
 
 Remove the null-aware operator from widget binding instance because it is unnecessary since Flutter 3.0.0.

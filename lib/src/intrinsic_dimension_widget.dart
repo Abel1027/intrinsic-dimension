@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class IntrinsicDimension extends StatefulWidget {
   /// [IntrinsicDimension] exposes a [listener] and a [builder] to get
@@ -49,6 +50,7 @@ class IntrinsicDimension extends StatefulWidget {
     Key? key,
     this.listener,
     required this.builder,
+    this.rebuild = false,
   }) : super(key: key);
 
   /// The [listener] callback function which is invoked on each widget build.
@@ -76,11 +78,22 @@ class IntrinsicDimension extends StatefulWidget {
     Offset startOffset,
   ) builder;
 
+  /// The [rebuild] boolean allows to rebuild the widget every frame
+  /// when it is set to true which updates the width, height, and
+  /// offset offered by the [listener] and [builder] callback functions.
+  /// This could be useful when changing the font size from the OS
+  /// settings. If [rebuild] is false, changing the font size could
+  /// change the widget size and offset and those properties won't
+  /// be given again by this widget via [listener] or [builder]
+  /// callback functions.
+  final bool rebuild;
+
   @override
   State<IntrinsicDimension> createState() => _IntrinsicDimensionState();
 }
 
-class _IntrinsicDimensionState extends State<IntrinsicDimension> {
+class _IntrinsicDimensionState extends State<IntrinsicDimension>
+    with SingleTickerProviderStateMixin {
   /// The private variable [_widgetKey] is used to assign a `GlobalKey`
   /// to the widget. With the [_widgetKey] is obtained the widget's
   /// render box which gives the widget's dimensions and offset.
@@ -99,6 +112,10 @@ class _IntrinsicDimensionState extends State<IntrinsicDimension> {
   /// the screen (0, 0).
   late Offset _startOffset;
 
+  /// The private variable [_ticker] is used to rebuild the widget
+  /// every frame.
+  Ticker? _ticker;
+
   @override
   void initState() {
     super.initState();
@@ -106,22 +123,39 @@ class _IntrinsicDimensionState extends State<IntrinsicDimension> {
     _width = 0;
     _height = 0;
     _startOffset = Offset.zero;
-    WidgetsBinding.instance.addPostFrameCallback(_getDimensionsAfterLayout);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        if (widget.rebuild) {
+          _ticker = createTicker((_) {
+            _getDimensionsAfterLayout();
+          })
+            ..start();
+        } else {
+          _getDimensionsAfterLayout();
+        }
+      },
+    );
   }
 
-  void _getDimensionsAfterLayout(_) {
+  void _getDimensionsAfterLayout() {
     setState(() {
       if (_widgetKey.currentContext != null) {
-        final _widgetRenderBox =
+        final widgetRenderBox =
             _widgetKey.currentContext!.findRenderObject() as RenderBox;
 
-        _width = _widgetRenderBox.paintBounds.right;
-        _height = _widgetRenderBox.paintBounds.bottom;
-        _startOffset = _widgetRenderBox.localToGlobal(Offset.zero);
+        _width = widgetRenderBox.paintBounds.right;
+        _height = widgetRenderBox.paintBounds.bottom;
+        _startOffset = widgetRenderBox.localToGlobal(Offset.zero);
 
         widget.listener?.call(context, _width, _height, _startOffset);
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _ticker?.dispose();
+    super.dispose();
   }
 
   @override
