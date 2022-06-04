@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
 </p>
 
 <p align="center">
-  <img width="267" height="511" src="https://github.com/Abel1027/intrinsic-dimension/raw/main/gallery/IntrinsicConnection.PNG">
+  <img width="267" height="511" src="https://github.com/Abel1027/intrinsic-dimension/raw/main/gallery/IntrinsicDimensionRebuild.gif">
 </p>
 
 ## Dart Versions
