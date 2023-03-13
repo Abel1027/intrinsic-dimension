@@ -4,7 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intrinsic_dimension/intrinsic_dimension.dart';
 
 class IntrinsicDimensionExample extends StatelessWidget {
-  const IntrinsicDimensionExample({Key? key}) : super(key: key);
+  const IntrinsicDimensionExample({
+    Key? key,
+    required this.rebuild,
+  }) : super(key: key);
+
+  final bool rebuild;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +50,7 @@ class IntrinsicDimensionExample extends StatelessWidget {
                 ],
               );
             },
+            rebuild: rebuild,
           ),
         ),
       ),
@@ -53,10 +59,19 @@ class IntrinsicDimensionExample extends StatelessWidget {
 }
 
 void main() {
-  testWidgets('Find vertical line from container', (tester) async {
-    await tester.pumpWidget(const IntrinsicDimensionExample());
+  testWidgets('Find vertical line from container - No rebuild', (tester) async {
+    await tester.pumpWidget(const IntrinsicDimensionExample(rebuild: false));
 
     await tester.pumpAndSettle();
+
+    final containerFinder = find.byKey(const Key('Container'));
+    expect(containerFinder, findsOneWidget);
+  });
+
+  testWidgets('Find vertical line from container - Rebuild', (tester) async {
+    await tester.pumpWidget(const IntrinsicDimensionExample(rebuild: true));
+
+    await tester.pump();
 
     final containerFinder = find.byKey(const Key('Container'));
     expect(containerFinder, findsOneWidget);
