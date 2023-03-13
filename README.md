@@ -6,6 +6,8 @@
 
 <div align="center">A widget that expose a builder to obtain the dimensions of the widget returned from the builder.</div>
 
+[![coverage][coverage_badge]][coverage_badge]
+
 ## Motivation
 
 There are some situations when we want to know the dimensions of a widget to make an operation or to create another widget based on those dimensions. However, we cannot know the dimensions of a widget because the widget could not have an specific dimension.
@@ -85,3 +87,5 @@ class MyApp extends StatelessWidget {
 ## Author
 
 - [Abel Rodríguez](https://github.com/Abel1027)
+
+[coverage_badge]: https://github.com/Abel1027/intrinsic-dimension/raw/main/gallery/coverage_badge.svg
