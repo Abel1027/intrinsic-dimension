@@ -1,6 +1,6 @@
 name: intrinsic_dimension
 description: A widget that offers the dimensions (width and height) and the start offset of the widget you return from a builder callback function.
-version: 0.3.0
+version: 0.3.1
 repository: https://github.com/Abel1027/intrinsic-dimension
 
 environment:
